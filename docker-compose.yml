@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  github-runner:
+    image: myoung34/github-runner:latest
+    container_name: quickbite-restaurant-runner
+    restart: unless-stopped
+    environment:
+      REPO_URL: https://github.com/quoctinh-dev/dev-ops-s07-ex04-self-hosted-runner
+      RUNNER_NAME: quickbite-runner-01
+      RUNNER_WORKDIR: /tmp/runner
+      ACCESS_TOKEN: YOUR_GITHUB_PAT
+      LABELS: quickbite-linux,restaurant-service
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/runner:/tmp/runner

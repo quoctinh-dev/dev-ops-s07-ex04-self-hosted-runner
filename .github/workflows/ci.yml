@@ -1,0 +1,25 @@
+name: Restaurant Service CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_on_self_hosted:
+    # Chỉ định chạy trên self-hosted runner mang nhãn quickbite-linux
+    runs-on: [self-hosted, quickbite-linux]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        run: |
+          chmod +x ./gradlew
+          ./gradlew bootJar
